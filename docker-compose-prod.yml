@@ -3,9 +3,19 @@ version: '3.0'
 services:
   web:
     # TODO: image, ports and redis dependency
+    image: majchrow/io-lab-docker-ci-public:1.0 # shoud be realeased with v1.0 :(
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
   redis:
     image: redis:6.0-rc3
     # TODO: persistence for redis. You need to persist /data directory.
+    volumes:
+      - db-data-prod:/data
+
+volumes:
+  db-data-prod:
